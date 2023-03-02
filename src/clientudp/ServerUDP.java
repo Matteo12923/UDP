@@ -32,30 +32,30 @@ public class ServerUDP {
 
 public void sendAndReceive() {
     try {
-        byte[] incomingData = new byte[1024];
+        byte[] inData = new byte[1024];
 
         while (true) {
             
             //Ricezione dello stream di byte
-            DatagramPacket incomingPacket = new DatagramPacket(incomingData, incomingData.length);
-            socket.receive(incomingPacket);
+            DatagramPacket inPacket = new DatagramPacket(inData, inData.length);
+            socket.receive(inPacket);
             
-            byte[] data = incomingPacket.getData();
+            byte[] data = inPacket.getData();
             
             //Deserializzazione: dallo stream di byte all'oggetto
             ByteArrayInputStream in = new ByteArrayInputStream(data);
-            ObjectInputStream is = new ObjectInputStream(in);
+            ObjectInputStream os = new ObjectInputStream(in);
             
             try {
-                Dipendente dipendente = (Dipendente) is.readObject();
+                Dipendente dipendente = (Dipendente) os.readObject();
                 System.out.println("Dal client Dipendente;" + dipendente);
             } catch (ClassNotFoundException e) {
                 System.err.println("La classe dipendenre non esiste");
             }
         
             //Recupero dei dati del mittente
-            InetAddress IPAddress = incomingPacket.getAddress();
-            int port = incomingPacket.getPort();
+            InetAddress IPAddress = inPacket.getAddress();
+            int port = inPacket.getPort();
             
             //Invio della risposta
             String risposta = "il messaggio è stato ricevuto";

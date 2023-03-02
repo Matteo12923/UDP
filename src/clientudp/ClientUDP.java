@@ -40,7 +40,7 @@ public void sendAndReceive() {
 
         byte[] inData = new byte[1024];
         
-        Dipendente dipendente= new Dipendente("Nome","Cognome",id);
+        Dipendente dipendente= new Dipendente("Nome","Cognome",Id);
         
         //Serializzazione: dall'oggetto allo stream di byte
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
